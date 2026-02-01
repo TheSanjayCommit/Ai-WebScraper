@@ -13,7 +13,6 @@ services:
   # Frontend Static Site
   - type: static
     name: ai-web-scraper-frontend
-    env: static
     buildCommand: cd client && npm install && npm run build
     staticPublishPath: client/dist
     envVars:
