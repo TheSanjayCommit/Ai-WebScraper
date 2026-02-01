@@ -1,0 +1,24 @@
+services:
+  # Backend Service (Docker)
+  - type: web
+    name: ai-web-scraper-backend
+    env: docker
+    plan: free
+    dockerContext: server
+    envVars:
+      - key: PORT
+        value: 5000
+    autoDeploy: false
+
+  # Frontend Static Site
+  - type: static
+    name: ai-web-scraper-frontend
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: ai-web-scraper-backend
+          property: url
